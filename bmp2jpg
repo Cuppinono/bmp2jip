@@ -1,0 +1,21 @@
+import cv2
+import os
+
+path = r'C:\Users\admin\Desktop\19 zhixiangbaozhuang\OK'
+
+save_path = r'C:\Users\admin\Desktop\jpg\OK'
+if not os.path.exists(save_path):
+    os.makedirs(save_path)
+
+img_list = os.listdir(path)
+for i in img_list:
+    img_path = os.path.join(path, i)
+    img = cv2.imread(img_path)
+    # imencode
+    img_encode = cv2.imencode('.jpg', img)[1]  # .jpg 编码格式
+    img_decode = cv2.imdecode(img_encode, cv2.IMWRITE_JPEG_QUALITY)
+    #img_resize = cv2.resize(img_decode, (512, 512)) #压缩尺寸
+    new_name = i.split('.', 2)[0] + '.jpg'
+    img_save_path = os.path.join(save_path, new_name)
+    cv2.imwrite(img_save_path, img_decode)  #img_decode--》img_resize
+    print(i)
